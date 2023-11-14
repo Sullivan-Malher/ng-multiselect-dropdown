@@ -16,9 +16,9 @@ export class ListFilterPipe implements PipeTransform {
 
     applyFilter(item: ListItem, filter: ListItem): boolean {
         if (typeof item.text === 'string' && typeof filter.text === 'string') {
-            return !(filter.text && item.text && item.text.toLowerCase().indexOf(filter.text.toLowerCase()) === -1);
+            return !(filter.text && item.text && item.text.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').indexOf(filter.text.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '')) === -1);
         } else {
-            return !(filter.text && item.text && item.text.toString().toLowerCase().indexOf(filter.text.toString().toLowerCase()) === -1);
+            return !(filter.text && item.text && item.text.toString().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').indexOf(filter.text.toString().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '')) === -1);
         }
     }
 }
